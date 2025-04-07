@@ -1,13 +1,13 @@
 -- Maddison Lobo & Kayla Nguyen
 -- CMPM 121 - Section 01
 -- 04/07/2025
+
 io.stdout:setvbuf("no") -- Prints statements in real time
 
 require "ball"
 
 ballObject = {}
 timer = 0
-numBall = 0
 
 GAME_TITLE = "Section 01"
 
@@ -47,6 +47,7 @@ function love.draw()
     obj:draw()
     obj:move()
     obj:checkEdges()
+    obj:shrink()
   end
     
   
@@ -64,7 +65,7 @@ function love.mousereleased(x, y, button)
       endX, endY = x, y
       drawing = false
       
-      local testObj = Ball:new(startX, startY, (startX - endX) * 0.1, (startY - endY) * 0.1, 50)
+      local testObj = Ball:new(startX, startY, (startX - endX) * 0.05, (startY - endY) * 0.05, 50)
       table.insert(ballObject, testObj)  
       numBall = numBall + 1
       

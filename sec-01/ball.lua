@@ -1,6 +1,8 @@
 Ball = {}
 Ball.__index = Ball
 
+numBall = 0
+
 function Ball:new(x, y, xSpeed, ySpeed, radius)
   local ball = {
     x = x,
@@ -33,5 +35,15 @@ function Ball:checkEdges()
     end
 end
 
-function Ball:shrink()
+function Ball:shrink(dt)
+  if self.radius > 0 then
+    self.radius = self.radius - 0.1
+
+    if self.radius <= 0 then
+      print('decrement')
+      self.radius = 0
+      numBall = numBall - 1
+    end
+  end
+end
   
