@@ -23,26 +23,30 @@ function Ball:new(x, y, xSpeed, ySpeed, radius)
 
   setmetatable(ball, self)
   return ball
+
 end
 
 function Ball:draw()
   love.graphics.setColor(self.rgb.r, self.rgb.g, self.rgb.b)
   love.graphics.circle("line", self.x, self.y, self.radius)
   love.graphics.setLineWidth(3)
+
 end
 
 function Ball:move()
   self.x = self.x + self.xSpeed
   self.y = self.y + self.ySpeed
+
 end
 
-function Ball:checkEdges() 
+function Ball:collideWall()
     if self.x + self.radius > love.graphics.getWidth() or self.x - self.radius < 0 then 
         self.xSpeed = self.xSpeed * -1
     end
     if self.y + self.radius > love.graphics.getHeight() or self.y - self.radius < 0 then 
         self.ySpeed = self.ySpeed * -1
     end
+
 end
 
 function Ball:shrink(dt)
@@ -55,5 +59,6 @@ function Ball:shrink(dt)
       numBall = numBall - 1
     end
   end
+
 end
   

@@ -19,8 +19,7 @@ function love.load()
   love.window.setMode(screenWidth, screenHeight)
   love.graphics.setBackgroundColor(0.1, 0, 0.2, 1)
   
-  startX = nil
-  startY = nil
+  startX, startY = nil, nil
   local endX, endY = nil, nil
   local drawing = false
   
@@ -28,6 +27,7 @@ end
 
 function love.update(dt)
   timer = timer + dt
+
 end
 
 function love.draw()
@@ -37,20 +37,20 @@ function love.draw()
   love.graphics.print(string.format("Balls: %.0f", numBall), 20, 20, 0, 2)
   love.graphics.print(string.format("timer: %.2f", timer), 20, 400)
   
-  -- BALL
+  -- LINE
   love.graphics.setColor(1, 1, 1, 1)
   if drawing then
       love.graphics.line(startX, startY, love.mouse.getX(), love.mouse.getY())
   end
 
+  -- BALL
   for _, obj in ipairs(ballObject) do
     obj:draw()
     obj:move()
-    obj:checkEdges()
+    obj:collideWall()
     obj:shrink()
   end
-    
-  
+
 end
 
 function love.mousepressed(x, y, button, repeats)
@@ -58,6 +58,7 @@ function love.mousepressed(x, y, button, repeats)
       startX, startY = x, y
       drawing = true
     end
+
 end
 
 function love.mousereleased(x, y, button)
@@ -68,6 +69,6 @@ function love.mousereleased(x, y, button)
       local testObj = Ball:new(startX, startY, (startX - endX) * 0.05, (startY - endY) * 0.05, 50)
       table.insert(ballObject, testObj)  
       numBall = numBall + 1
-      
     end
+
 end
