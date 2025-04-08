@@ -9,16 +9,26 @@ function Ball:new(x, y, xSpeed, ySpeed, radius)
     y = y,
     xSpeed = xSpeed,
     ySpeed = ySpeed,
-    radius = radius
+    radius = radius,
+    rgb = {
+      r = 0,
+      g = 0,
+      b = 0,
+    },
   }
+
+  ball.rgb.r = love.math.random()
+  ball.rgb.g = love.math.random()
+  ball.rgb.b = love.math.random()
+
   setmetatable(ball, self)
   return ball
 end
 
 function Ball:draw()
-  -- NEW CODE - not in class
-  love.graphics.setColor(1, 1, 1)
+  love.graphics.setColor(self.rgb.r, self.rgb.g, self.rgb.b)
   love.graphics.circle("line", self.x, self.y, self.radius)
+  love.graphics.setLineWidth(3)
 end
 
 function Ball:move()
